@@ -43,9 +43,11 @@ function getInputAndPush() {
   let read = document.getElementById("read");
   let readValue;
   if (read.checked) {
-    readValue = read.value = "yes";
+    read.value = "yes";
+    readValue = read.value;
   } else {
-    readValue = read.value = "no";
+    read.value = "no";
+    readValue = read.value;
   }
 
   let book = new Book(author.value, title.value, pages.value, readValue);
@@ -60,7 +62,10 @@ function displayBook(bookArray) {
     let h2 = document.createElement("h2");
     let h3 = document.createElement("h2");
     let input = document.createElement("input");
-
+    let cardBtn = document.createElement("button");
+    let toggleBtn = document.createElement("button");
+    cardBtn.textContent = "remove";
+    toggleBtn.textContent = "read?";
     h1.textContent = book.author;
     h2.textContent = book.title;
     h3.textContent = book.pages;
@@ -79,7 +84,29 @@ function displayBook(bookArray) {
     card.appendChild(h2);
     card.appendChild(h3);
     card.appendChild(input);
+    card.appendChild(cardBtn);
+    card.appendChild(toggleBtn);
+
     container.appendChild(card);
+    cardBtn.addEventListener("click", (e) => {
+      e.target.parentNode.remove();
+      let indexBook = myLibrary.indexOf(book);
+      console.log(indexBook);
+      myLibrary.splice(indexBook, 1);
+    });
+
+    toggleBtn.addEventListener("click", () => {
+      const currentColor = input.style.backgroundColor;
+
+      if (currentColor === "green") {
+        input.style.backgroundColor = "red";
+        input.value = "Not Read";
+      } else {
+        // Assuming initial state is not green
+        input.style.backgroundColor = "green";
+        input.value = "Read";
+      }
+    });
   }
 }
 
@@ -107,3 +134,5 @@ addBtn.addEventListener("click", (e) => {
 
 // keepGoing = true;
 // while (keepGoing) {}
+
+//Functions in JavaScript form closures. A closure refers to the combination of a function and the surrounding state in which the function was declared.
