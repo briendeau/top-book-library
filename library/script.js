@@ -23,9 +23,7 @@
 
 */
 
-let myLibrary = [
-  { author: "Stephen King", title: "The Shining", pages: "344", read: "yes" },
-];
+let myLibrary = [];
 const container = document.getElementById("container");
 const showBtn = document.getElementById("showButton");
 
@@ -34,6 +32,11 @@ function Book(author, title, pages, read) {
   this.title = title;
   this.pages = pages;
   this.read = read;
+
+  this.toggleRead = () => {
+    this.read = this.read === "yes" ? "no" : "yes";
+    return this.read; // Return the new read value
+  };
 }
 
 function getInputAndPush() {
@@ -65,7 +68,7 @@ function displayBook(bookArray) {
     let cardBtn = document.createElement("button");
     let toggleBtn = document.createElement("button");
     cardBtn.textContent = "remove";
-    toggleBtn.textContent = "read?";
+    toggleBtn.textContent = book.read === "yes" ? "Mark Unread" : "Mark Read";
     h1.textContent = book.author;
     h2.textContent = book.title;
     h3.textContent = book.pages;
@@ -96,15 +99,17 @@ function displayBook(bookArray) {
     });
 
     toggleBtn.addEventListener("click", () => {
-      const currentColor = input.style.backgroundColor;
+      const newReadStatus = book.toggleRead(); // Call toggleRead and get new value
 
-      if (currentColor === "green") {
-        input.style.backgroundColor = "red";
-        input.value = "Not Read";
-      } else {
-        // Assuming initial state is not green
+      // Update UI based on new read status
+      toggleBtn.textContent =
+        newReadStatus === "yes" ? "Mark Unread" : "Mark Read";
+
+      // Update background color based on new read status (optional)
+      if (newReadStatus === "yes") {
         input.style.backgroundColor = "green";
-        input.value = "Read";
+      } else {
+        input.style.backgroundColor = "red";
       }
     });
   }
