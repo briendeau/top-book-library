@@ -9,10 +9,6 @@
   opacity: 0.75;
 }
 
-dialog {
-  /* display: flex; */
-}
-
 body {
   display: flex;
   flex-direction: column;

@@ -27,16 +27,29 @@ let myLibrary = [];
 const container = document.getElementById("container");
 const showBtn = document.getElementById("showButton");
 
-function Book(author, title, pages, read) {
-  this.author = author;
-  this.title = title;
-  this.pages = pages;
-  this.read = read;
+// function Book(author, title, pages, read) {
+//   this.author = author;
+//   this.title = title;
+//   this.pages = pages;
+//   this.read = read;
 
-  this.toggleRead = () => {
+//   this.toggleRead = () => {
+//     this.read = this.read === "yes" ? "no" : "yes";
+//     return this.read; // Return the new read value
+//   };
+// }
+
+class Book {
+  constructor(author, title, pages, read) {
+    this.author = author;
+    this.title = title;
+    this.pages = pages;
+    this.read = read;
+  }
+  toggleRead() {
     this.read = this.read === "yes" ? "no" : "yes";
     return this.read; // Return the new read value
-  };
+  }
 }
 
 function getInputAndPush() {
